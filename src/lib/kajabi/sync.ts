@@ -1,5 +1,6 @@
 import "server-only";
 
+import { describeUnknownError } from "@/lib/errors";
 import { buildKajabiPath, kajabiFetch } from "@/lib/kajabi/client";
 import { normalizeKajabiPurchaseStatus } from "@/lib/kajabi/status";
 import type { BatchSyncResource, BatchSyncResult, JsonApiResource, KajabiResponse, SyncResult } from "@/lib/kajabi/types";
@@ -27,6 +28,10 @@ function includedById(included: JsonApiResource[] | undefined, type: string, id:
 
 function timestamp(value: unknown) {
   return typeof value === "string" && value ? value : null;
+}
+
+function safePositiveInteger(value: number, fallback: number) {
+  return Number.isFinite(value) && value > 0 ? Math.floor(value) : fallback;
 }
 
 function customerPayload(customer: JsonApiResource) {
@@ -275,14 +280,16 @@ export async function syncKajabiPurchases(syncType: "initial" | "latest") {
       result.recordsProcessed += await upsertResource("purchases", purchases, response.included);
 
       const totalPages = response.meta?.total_pages;
-      if (!purchases.length || !response.links?.next || (totalPages && page >= totalPages)) break;
+      const receivedFullPage = purchases.length === pageSize;
+      const hasNextPage = Boolean(response.links?.next) || Boolean(totalPages && page < totalPages) || receivedFullPage;
+      if (!purchases.length || !hasNextPage) break;
       page += 1;
     }
 
     await finishSyncLog(logId, result.errors.length ? "failed" : "completed", result);
     return result;
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = describeUnknownError(error);
     result.errors.push(message);
     await finishSyncLog(logId, "failed", result, message);
     throw error;
@@ -318,14 +325,16 @@ async function syncKajabiCollection(
       result.recordsProcessed += await options.upsert(rows);
 
       const totalPages = response.meta?.total_pages;
-      if (!rows.length || !response.links?.next || (totalPages && page >= totalPages)) break;
+      const receivedFullPage = rows.length === pageSize;
+      const hasNextPage = Boolean(response.links?.next) || Boolean(totalPages && page < totalPages) || receivedFullPage;
+      if (!rows.length || !hasNextPage) break;
       page += 1;
     }
 
     await finishSyncLog(logId, result.errors.length ? "failed" : "completed", result);
     return result;
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = describeUnknownError(error);
     result.errors.push(message);
     await finishSyncLog(logId, "failed", result, message);
     throw error;
@@ -393,6 +402,10 @@ export async function syncKajabiResourcePage(
   page: number,
   pageSize = 200,
 ): Promise<BatchSyncResult> {
+  const maxPageSize = resource === "purchases" ? purchasePageSize : 200;
+  const safePage = safePositiveInteger(page, 1);
+  const requestedPageSize = safePositiveInteger(pageSize, maxPageSize);
+  const safePageSize = Math.min(requestedPageSize, maxPageSize);
   const safePage = Math.max(Math.floor(page), 1);
   const maxPageSize = resource === "purchases" ? purchasePageSize : 200;
   const safePageSize = Math.min(Math.max(Math.floor(pageSize), 1), maxPageSize);
@@ -409,7 +422,8 @@ export async function syncKajabiResourcePage(
     const rows = response.data ?? [];
     const recordsProcessed = await upsertResource(resource, rows, response.included);
     const resolvedTotalPages = totalPages(response, safePageSize);
-    const hasNextPage = Boolean(response.links?.next) || Boolean(resolvedTotalPages && safePage < resolvedTotalPages);
+    const receivedFullPage = rows.length === safePageSize;
+    const hasNextPage = Boolean(response.links?.next) || Boolean(resolvedTotalPages && safePage < resolvedTotalPages) || receivedFullPage;
     const result: BatchSyncResult = {
       resource,
       page: safePage,
@@ -429,7 +443,7 @@ export async function syncKajabiResourcePage(
 
     return result;
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = describeUnknownError(error);
     await finishSyncLog(
       logId,
       "failed",
