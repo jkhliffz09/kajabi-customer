@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { describeUnknownError } from "@/lib/errors";
 import { requireAdminApi } from "@/lib/auth/session";
 import { syncKajabiResourcePage } from "@/lib/kajabi/sync";
 import type { BatchSyncResource } from "@/lib/kajabi/types";
@@ -30,6 +31,6 @@ export async function POST(request: Request) {
     );
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Batch sync failed" }, { status: 500 });
+    return NextResponse.json({ error: describeUnknownError(error) }, { status: 500 });
   }
 }

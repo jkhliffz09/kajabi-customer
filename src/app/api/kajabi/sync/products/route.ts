@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { describeUnknownError } from "@/lib/errors";
 import { requireAdminApi } from "@/lib/auth/session";
 import { syncKajabiProducts } from "@/lib/kajabi/sync";
 
@@ -11,6 +12,6 @@ export async function POST() {
     const result = await syncKajabiProducts();
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Product sync failed" }, { status: 500 });
+    return NextResponse.json({ error: describeUnknownError(error) }, { status: 500 });
   }
 }

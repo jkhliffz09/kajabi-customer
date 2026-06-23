@@ -72,10 +72,16 @@ Do not upload the frontend-assets zip as a standalone dashboard. It only contain
 
 ## 4. Upload the Node.js Zip
 
-Use this zip:
+Generate the upload zip before downloading or uploading it:
 
-   ```text
-   artifacts/kajabi-customer-nodejs.zip
+```bash
+npm run package:cpanel
+```
+
+This creates:
+
+```text
+artifacts/kajabi-customer-nodejs.zip
 ```
 
 1. Open **File Manager**.
@@ -93,13 +99,12 @@ Use this zip:
    server.js
    package.json
    package-lock.json
-   .next/
    public/
    src/
    supabase/
    ```
 
-Do not upload `.env.local`.
+The generated zip intentionally excludes `.next/` so cPanel cannot keep running a stale compiled build. Do not upload `.env.local`.
 
 ## 5. Add Environment Variables in cPanel
 
@@ -125,17 +130,11 @@ KAJABI_WEBHOOK_SECRET=
 
 Keep `SUPABASE_SERVICE_ROLE_KEY`, Kajabi credentials, and `AUTH_COOKIE_SECRET` server-only.
 
-## 6. Install Dependencies and Build
+## 6. Install Dependencies
 
-In cPanel **Terminal** or SSH:
+In cPanel **Setup Node.js App**, click **Run NPM Install**. The cPanel package includes a `postinstall` script, so this button also runs `next build` automatically and creates a fresh `.next/` build.
 
-```bash
-cd /home/YOUR_CPANEL_USER/businessbydesign.space
-npm ci
-npm run build
-```
-
-If cPanel already runs `npm install` for the Node app, still run `npm run build` after env vars are set.
+The generated zip intentionally excludes `.next/`; the npm install button must finish successfully before restart. If install fails, do not restart yet—open the install output and check the error details.
 
 ## 7. Restart the Node App
 
@@ -173,6 +172,6 @@ Type: 302 or 301
 - Login fails: confirm the user exists in **Supabase → Authentication → Users** and the email is included in `ADMIN_EMAIL_ALLOWLIST`.
 - Forgot password link fails: confirm Supabase redirect URLs include `https://businessbydesign.space/reset-password`.
 - Blank or broken CSS: confirm `.next/static/` and `public/` are present in the Node app root.
-- 500 error after upload: run `npm run build`, confirm all env vars are set, then restart the Node app.
+- 500 error after upload: click **Run NPM Install** again, confirm it completes the automatic `next build`, confirm all env vars are set, then restart the Node app.
 - Empty `customer_email` or `customer_name` in purchases: run sync in this order: customers, offers, products, purchases. Existing purchase rows are enriched when purchases are re-synced.
-- Large sync timing out: use the dashboard's batch buttons. They call `/api/kajabi/sync/batch` with `page[size]=200`, process one page per request, and update the progress bar after each page.
+- Large sync timing out: use the dashboard's batch buttons. They call `/api/kajabi/sync/batch`, process one page per request, and update the progress bar after each page. Purchases use `page[size]=25` (for example, `/v1/purchases?page[number]=2&page[size]=25`); other resources use `page[size]=200`.
