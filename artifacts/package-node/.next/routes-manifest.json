@@ -1,0 +1,162 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/customers/[id]",
+      "regex": "^/customers/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/customers/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/auth/logout",
+      "regex": "^/api/auth/logout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/logout(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/batch",
+      "regex": "^/api/kajabi/sync/batch(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/batch(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/customers",
+      "regex": "^/api/kajabi/sync/customers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/customers(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/initial",
+      "regex": "^/api/kajabi/sync/initial(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/initial(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/latest",
+      "regex": "^/api/kajabi/sync/latest(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/latest(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/offers",
+      "regex": "^/api/kajabi/sync/offers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/offers(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/products",
+      "regex": "^/api/kajabi/sync/products(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/products(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/sync/purchases",
+      "regex": "^/api/kajabi/sync/purchases(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/sync/purchases(?:/)?$"
+    },
+    {
+      "page": "/api/kajabi/webhook/purchase",
+      "regex": "^/api/kajabi/webhook/purchase(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/kajabi/webhook/purchase(?:/)?$"
+    },
+    {
+      "page": "/customers",
+      "regex": "^/customers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/customers(?:/)?$"
+    },
+    {
+      "page": "/dashboard",
+      "regex": "^/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/forgot-password",
+      "regex": "^/forgot\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/forgot\\-password(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/reset-password",
+      "regex": "^/reset\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/reset\\-password(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

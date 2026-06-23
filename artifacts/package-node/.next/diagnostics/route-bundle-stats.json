@@ -1,0 +1,115 @@
+[
+  {
+    "route": "/reset-password",
+    "firstLoadUncompressedJsBytes": 753050,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/1rxncug86bump.js",
+      ".next/static/chunks/1zn58ji31ybuk.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/dashboard",
+    "firstLoadUncompressedJsBytes": 544075,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/1sk26d91qukjo.js",
+      ".next/static/chunks/02ano3d0-_59t.js",
+      ".next/static/chunks/3xegkt87e0hd9.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/customers",
+    "firstLoadUncompressedJsBytes": 521672,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/02ano3d0-_59t.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/customers/[id]",
+    "firstLoadUncompressedJsBytes": 521672,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/02ano3d0-_59t.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/forgot-password",
+    "firstLoadUncompressedJsBytes": 520475,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/1rxncug86bump.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/login",
+    "firstLoadUncompressedJsBytes": 520475,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/1rxncug86bump.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/",
+    "firstLoadUncompressedJsBytes": 514647,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  },
+  {
+    "route": "/_not-found",
+    "firstLoadUncompressedJsBytes": 514647,
+    "firstLoadChunkPaths": [
+      ".next/static/chunks/05-c3ty_6dwfk.js",
+      ".next/static/chunks/14mrh2-p_w84d.js",
+      ".next/static/chunks/3z5q_p4msz2ha.js",
+      ".next/static/chunks/15orcrkp-_9ct.js",
+      ".next/static/chunks/2nykiepra7i1k.js",
+      ".next/static/chunks/2yii6vu9apbyw.js",
+      ".next/static/chunks/turbopack-352si2qipvo3h.js"
+    ]
+  }
+]

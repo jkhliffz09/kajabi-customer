@@ -1,0 +1,3 @@
+{
+  "/api/kajabi/webhook/purchase/route": "app/api/kajabi/webhook/purchase/route.js"
+}

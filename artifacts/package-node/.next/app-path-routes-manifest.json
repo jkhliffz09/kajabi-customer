@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/logout/route": "/api/auth/logout",
+  "/api/kajabi/sync/batch/route": "/api/kajabi/sync/batch",
+  "/api/kajabi/sync/customers/route": "/api/kajabi/sync/customers",
+  "/api/kajabi/sync/initial/route": "/api/kajabi/sync/initial",
+  "/api/kajabi/sync/latest/route": "/api/kajabi/sync/latest",
+  "/api/kajabi/sync/offers/route": "/api/kajabi/sync/offers",
+  "/api/kajabi/sync/products/route": "/api/kajabi/sync/products",
+  "/api/kajabi/sync/purchases/route": "/api/kajabi/sync/purchases",
+  "/api/kajabi/webhook/purchase/route": "/api/kajabi/webhook/purchase",
+  "/customers/[id]/page": "/customers/[id]",
+  "/customers/page": "/customers",
+  "/dashboard/page": "/dashboard",
+  "/favicon.ico/route": "/favicon.ico",
+  "/forgot-password/page": "/forgot-password",
+  "/login/page": "/login",
+  "/page": "/",
+  "/reset-password/page": "/reset-password"
+}

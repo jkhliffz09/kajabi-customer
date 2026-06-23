@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
+  "/api/kajabi/sync/batch/route": "app/api/kajabi/sync/batch/route.js",
+  "/api/kajabi/sync/customers/route": "app/api/kajabi/sync/customers/route.js",
+  "/api/kajabi/sync/initial/route": "app/api/kajabi/sync/initial/route.js",
+  "/api/kajabi/sync/latest/route": "app/api/kajabi/sync/latest/route.js",
+  "/api/kajabi/sync/offers/route": "app/api/kajabi/sync/offers/route.js",
+  "/api/kajabi/sync/products/route": "app/api/kajabi/sync/products/route.js",
+  "/api/kajabi/sync/purchases/route": "app/api/kajabi/sync/purchases/route.js",
+  "/api/kajabi/webhook/purchase/route": "app/api/kajabi/webhook/purchase/route.js",
+  "/customers/[id]/page": "app/customers/[id]/page.js",
+  "/customers/page": "app/customers/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/reset-password/page": "app/reset-password/page.js"
+}
