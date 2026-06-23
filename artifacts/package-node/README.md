@@ -85,7 +85,7 @@ Kajabi API calls are made only from server modules and route handlers. Access an
 - `/api/kajabi/sync/customers`: fetches customer pages using `/v1/customers`.
 - `/api/kajabi/sync/offers`: fetches offer pages using `/v1/offers`.
 - `/api/kajabi/sync/products`: fetches product pages using `/v1/products`.
-- `/api/kajabi/sync/purchases`: fetches all purchase pages using `/v1/purchases`, then fetches each purchase detail.
+- `/api/kajabi/sync/purchases`: fetches purchase pages from `/v1/purchases` in batches using `page[number]` and `page[size]` (25 records per page).
 - `/api/kajabi/sync/batch`: fetches one page at a time for customers, offers, products, or purchases using `page[number]` and `page[size]`.
 - `/api/kajabi/sync/initial`: legacy full purchase sync.
 - `/api/kajabi/sync/latest`: fetches the newest updated pages and upserts records.
@@ -93,7 +93,7 @@ Kajabi API calls are made only from server modules and route handlers. Access an
 - Sync jobs create `sync_logs` records and continue past individual record failures.
 - Run the first full sync in this order: customers, offers, products, purchases. Purchase payloads often only include relationship IDs, so purchase rows are enriched from the already-synced customer and offer tables.
 
-The dashboard buttons use the batch route with a page size of 200 and show a progress bar. This keeps each server request small enough for cPanel-style timeouts while the browser advances page by page.
+The dashboard buttons use the batch route and show a progress bar while the browser advances page by page. Purchases use smaller 25-record pages (for example, `/v1/purchases?page[number]=2&page[size]=25`) to avoid Kajabi purchase-fetch errors; other resources use 200-record pages.
 
 ## Webhook
 

@@ -72,10 +72,16 @@ Do not upload the frontend-assets zip as a standalone dashboard. It only contain
 
 ## 4. Upload the Node.js Zip
 
-Use this zip:
+Generate the upload zip before downloading or uploading it:
 
-   ```text
-   artifacts/kajabi-customer-nodejs.zip
+```bash
+npm run package:cpanel
+```
+
+This creates:
+
+```text
+artifacts/kajabi-customer-nodejs.zip
 ```
 
 1. Open **File Manager**.
@@ -175,4 +181,4 @@ Type: 302 or 301
 - Blank or broken CSS: confirm `.next/static/` and `public/` are present in the Node app root.
 - 500 error after upload: run `npm run build`, confirm all env vars are set, then restart the Node app.
 - Empty `customer_email` or `customer_name` in purchases: run sync in this order: customers, offers, products, purchases. Existing purchase rows are enriched when purchases are re-synced.
-- Large sync timing out: use the dashboard's batch buttons. They call `/api/kajabi/sync/batch` with `page[size]=200`, process one page per request, and update the progress bar after each page.
+- Large sync timing out: use the dashboard's batch buttons. They call `/api/kajabi/sync/batch`, process one page per request, and update the progress bar after each page. Purchases use `page[size]=25` (for example, `/v1/purchases?page[number]=2&page[size]=25`); other resources use `page[size]=200`.
