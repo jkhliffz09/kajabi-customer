@@ -406,6 +406,9 @@ export async function syncKajabiResourcePage(
   const safePage = safePositiveInteger(page, 1);
   const requestedPageSize = safePositiveInteger(pageSize, maxPageSize);
   const safePageSize = Math.min(requestedPageSize, maxPageSize);
+  const safePage = Math.max(Math.floor(page), 1);
+  const maxPageSize = resource === "purchases" ? purchasePageSize : 200;
+  const safePageSize = Math.min(Math.max(Math.floor(pageSize), 1), maxPageSize);
   const logId = await createSyncLog(`${resource}:page:${safePage}`);
   const path = buildKajabiPath(endpointForResource(resource), {
     "page[number]": safePage,
