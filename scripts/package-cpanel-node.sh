@@ -15,6 +15,7 @@ rm -f "$zip_path"
   cd "$package_dir"
   zip -qr "$zip_path" . \
     -x 'node_modules/*' \
+    -x '.next/*' \
     -x '.env*' \
     -x '*.DS_Store'
 )

@@ -38,6 +38,8 @@ export type SyncResult = {
   recordsProcessed: number;
   pagesFetched: number;
   errors: string[];
+  failedReason?: string;
+  failedAt?: Record<string, unknown>;
 };
 
 export type BatchSyncResource = "customers" | "offers" | "products" | "purchases";

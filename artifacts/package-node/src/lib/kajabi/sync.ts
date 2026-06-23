@@ -264,6 +264,7 @@ export async function syncKajabiPurchases(syncType: "initial" | "latest") {
   const pageSize = purchasePageSize;
   const maxPages = syncType === "initial" ? 10_000 : 5;
   let page = 1;
+  let lastPath: string | null = null;
 
   try {
     while (page <= maxPages) {
@@ -273,6 +274,7 @@ export async function syncKajabiPurchases(syncType: "initial" | "latest") {
         sort: syncType === "latest" ? "-updated_at" : "created_at",
         "filter[site_id]": process.env.KAJABI_SITE_ID,
       });
+      lastPath = path;
       const response = await kajabiFetch<KajabiResponse<JsonApiResource[]>>(path);
       const purchases = response.data ?? [];
       result.pagesFetched += 1;
@@ -290,6 +292,8 @@ export async function syncKajabiPurchases(syncType: "initial" | "latest") {
     return result;
   } catch (error) {
     const message = describeUnknownError(error);
+    result.failedReason = message;
+    result.failedAt = { syncType, page, pageSize, path: lastPath };
     result.errors.push(message);
     await finishSyncLog(logId, "failed", result, message);
     throw error;
@@ -310,6 +314,7 @@ async function syncKajabiCollection(
   const pageSize = options.pageSize ?? 100;
   const maxPages = options.maxPages ?? 10_000;
   let page = 1;
+  let lastPath: string | null = null;
 
   try {
     while (page <= maxPages) {
@@ -319,6 +324,7 @@ async function syncKajabiCollection(
         sort: "created_at",
         "filter[site_id]": process.env.KAJABI_SITE_ID,
       });
+      lastPath = path;
       const response = await kajabiFetch<KajabiResponse<JsonApiResource[]>>(path);
       const rows = response.data ?? [];
       result.pagesFetched += 1;
@@ -335,6 +341,8 @@ async function syncKajabiCollection(
     return result;
   } catch (error) {
     const message = describeUnknownError(error);
+    result.failedReason = message;
+    result.failedAt = { resource, page, pageSize, path: lastPath };
     result.errors.push(message);
     await finishSyncLog(logId, "failed", result, message);
     throw error;
@@ -448,6 +456,14 @@ export async function syncKajabiResourcePage(
         recordsProcessed: 0,
         pagesFetched: 0,
         errors: [message],
+        failedReason: message,
+        failedAt: {
+          resource,
+          page: safePage,
+          requestedPageSize: pageSize,
+          pageSize: safePageSize,
+          path,
+        },
       },
       message,
     );
