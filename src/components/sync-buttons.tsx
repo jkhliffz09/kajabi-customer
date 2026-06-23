@@ -42,7 +42,7 @@ export function SyncButtons() {
   const stopRequested = useRef(false);
 
   async function onSync(resource: SyncResource, label: string) {
-    const pageSize = 200;
+    const pageSize = resource === "purchases" ? 25 : 200;
     let page = 1;
     let processed = 0;
     stopRequested.current = false;
@@ -163,7 +163,7 @@ export function SyncButtons() {
           {state.status === "syncing" ? (
             <p className="mt-1 text-xs text-zinc-500">
               {state.processed ?? 0} records processed
-              {state.totalRecords ? ` of ${state.totalRecords}` : ""}. Page size: 200.
+              {state.totalRecords ? ` of ${state.totalRecords}` : ""}. Page size: {state.resource === "purchases" ? 25 : 200}.
             </p>
           ) : null}
         </div>

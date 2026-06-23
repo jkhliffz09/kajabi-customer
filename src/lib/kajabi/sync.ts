@@ -228,9 +228,7 @@ async function upsertResource(resource: BatchSyncResource, rows: JsonApiResource
   return upsertPurchases(rows, included);
 }
 
-async function fetchPurchaseDetails(id: string) {
-  return kajabiFetch<KajabiResponse<JsonApiResource>>(`/v1/purchases/${id}`);
-}
+const purchasePageSize = 25;
 
 async function createSyncLog(syncType: string) {
   const { data, error } = await getSupabaseAdmin()
@@ -258,7 +256,7 @@ async function finishSyncLog(id: string, status: "completed" | "failed", result:
 export async function syncKajabiPurchases(syncType: "initial" | "latest") {
   const logId = await createSyncLog(syncType);
   const result: SyncResult = { recordsProcessed: 0, pagesFetched: 0, errors: [] };
-  const pageSize = syncType === "initial" ? 100 : 50;
+  const pageSize = purchasePageSize;
   const maxPages = syncType === "initial" ? 10_000 : 5;
   let page = 1;
 
@@ -274,15 +272,7 @@ export async function syncKajabiPurchases(syncType: "initial" | "latest") {
       const purchases = response.data ?? [];
       result.pagesFetched += 1;
 
-      for (const purchase of purchases) {
-        try {
-          const detail = await fetchPurchaseDetails(purchase.id);
-          await upsertIncluded(detail.included);
-          result.recordsProcessed += await upsertPurchases([detail.data], detail.included);
-        } catch (error) {
-          result.errors.push(`Purchase ${purchase.id}: ${error instanceof Error ? error.message : String(error)}`);
-        }
-      }
+      result.recordsProcessed += await upsertResource("purchases", purchases, response.included);
 
       const totalPages = response.meta?.total_pages;
       if (!purchases.length || !response.links?.next || (totalPages && page >= totalPages)) break;
@@ -404,7 +394,8 @@ export async function syncKajabiResourcePage(
   pageSize = 200,
 ): Promise<BatchSyncResult> {
   const safePage = Math.max(Math.floor(page), 1);
-  const safePageSize = Math.min(Math.max(Math.floor(pageSize), 1), 200);
+  const maxPageSize = resource === "purchases" ? purchasePageSize : 200;
+  const safePageSize = Math.min(Math.max(Math.floor(pageSize), 1), maxPageSize);
   const logId = await createSyncLog(`${resource}:page:${safePage}`);
   const path = buildKajabiPath(endpointForResource(resource), {
     "page[number]": safePage,
